@@ -7,4 +7,14 @@ body {
   min-height: 100vh;
 }
 
+/* Hide scrollbar, but keep scrolling functionality */
+li::-webkit-scrollbar {
+  display: none;  /* Hide scrollbar in Chrome/Safari */
+}
+
+li {
+  -ms-overflow-style: none;  /* Hide scrollbar in Internet Explorer/Edge */
+  scrollbar-width: none;  /* Hide scrollbar in Firefox */
+}
+
 
