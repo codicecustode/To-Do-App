@@ -22,8 +22,6 @@ export const Input = (props) => {
     borderColor: 'red', // Optional: change border color
   };
 
-
-
   const buttonContainer = {
     marginLeft: '1rem',
   }
@@ -51,21 +49,24 @@ export const Input = (props) => {
   const [focused, setFocused] = useState(false);
 
   const handleInputChange = (value) => {
-    setInputValue(value);
+    setInputValue({ id:value, content:value, checked:false });
   }
 
   const handdleFormSubmit = (e) => {
     e.preventDefault();
-    if (!inputValue) return;
-    setTask((prevTask) => {
-      return [...prevTask, inputValue];
-    })
-    if(task.includes(inputValue)){
-      setInputValue('');
+    if (inputValue.content == '') return;
+    console.log('21');
+    if(task.find((currValue) => currValue.content === inputValue.content)){
+      setInputValue({ id:'', content:'', checked:false });
       return;
     }
-    setInputValue('');
-    console.log('Form submitted');
+
+    setTask((prevTask) => {
+      return [...prevTask, { id: inputValue.id, content: inputValue.content, checked: inputValue.checked }];
+    })
+  
+    setInputValue({ id:'', content:'', checked:false });
+
   }
 
 
@@ -77,7 +78,7 @@ export const Input = (props) => {
           <input
             type="text"
             placeholder="Add a todo task"
-            value={inputValue}
+            value={inputValue.content}
             style={focused ? { ...inputStyle, ...inputFocusStyle } : inputStyle}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
