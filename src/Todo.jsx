@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Input } from './components/Input';
 import { TaskViewer } from './components/TaskViewer';
 import { TodoDate } from './components/TodoDate';
+import { getLocalStorageData } from './utils/TodoLocalStorage.js';
+import { setLocalStorageData } from './utils/TodoLocalStorage.js';
 export const Todo = () => {
   const buttonStyle = {
     borderRadius: '999px',
@@ -15,12 +17,17 @@ export const Todo = () => {
   };
   const [inputValue, setInputValue] = useState({ id: '', content: '', checked: false });
  
-  const [task, setTask] = useState([]);
+  const [task, setTask] = useState(() => getLocalStorageData());
   const handleDelete = (index) => {
     setTask((prevTask) => {
       return prevTask.filter((_, i) => i !== index);
     });
   };
+
+  //set the task to local storage
+  setLocalStorageData(task);
+
+  
   const handleClearAll = () => {
     setTask([]);
   };
